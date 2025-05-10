@@ -3,7 +3,7 @@
 		<el-container>
 			<el-aside width="200px">
 				<el-menu class="el-menu-vertical-demo" router>
-					<div class="title">企业后台管理系统</div>
+					<div class="title">学生选课系统</div>
 					<el-menu-item index="home">
 						<el-icon>
 							<House />

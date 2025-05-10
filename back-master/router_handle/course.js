@@ -92,46 +92,23 @@ exports.getCourseList = (req, res) => {
 
 // 选择课程
 exports.applyCourse = (req, res) => {
-	const {
-        course_id,
-		course_name,
-        course_type,
-        course_desc,
-        teacher,
-	} = req.body
-	const course_apply_time = new Date()
 	
-	const sql0 = 'select * from mycourse where course_id = ?'
-	db.query(sql0, course_id, (err, result) => {
-		if (result.length > 0) {
-			res.send({
-				status: 1,
-				message: '课程编号已存在'
-			})
-		}else{
-			const sql =
-				'insert into mycourse set ?'
-			db.query(sql, [
-                course_id,
-				course_name,
-                course_type,
-                course_desc,
-                teacher,
-                course_apply_time
-			], (err, result) => {
-				if (err) return res.cc(err)
-				res.send({
-					status: 0,
-					message: '选择课程成功'
-				})
-			})
-		}
+	const course_apply_time = new Date()
+	const select_status = 1
+
+	const sql = 'update course set select_status = ? ,course_apply_time = ? where id = ?'
+	db.query(sql, [select_status, course_apply_time, req.body.id], (err, result) => {
+		if (err) return res.cc(err)
+		res.send({
+			status: 0,
+			message: '选择成功'
+		})
 	})
 }
 
 // 已选择课程列表
 exports.getMyCourseList = (req, res) => {
-	const sql = 'select * from mycourse'
+	const sql = 'select * from course where select_status = 1'
 	db.query(sql, (err, result) => {
 		if (err) return res.cc(err)
 		res.send(result)

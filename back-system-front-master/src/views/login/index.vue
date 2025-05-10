@@ -3,7 +3,7 @@
 		<el-container>
 			<el-header class="header-wrapped">
 				<div class="header-content">
-					<h3>企业后台管理系统</h3>
+					<h3>学生选课系统</h3>
 					<span class="welcome">欢迎您的登录</span>
 				</div>
 			</el-header>

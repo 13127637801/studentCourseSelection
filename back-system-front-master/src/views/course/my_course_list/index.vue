@@ -26,7 +26,7 @@
     // 面包屑参数
     const item = ref({
         first: '课程管理',
-        second: '课程列表'
+        second: '已选课程列表'
     })
 
     const tableData = ref([])

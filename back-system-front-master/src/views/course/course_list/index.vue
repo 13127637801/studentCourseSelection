@@ -21,7 +21,7 @@
             <el-table-column prop="teacher" label="授课老师" />
             <el-table-column fixed="right" label="操作" min-width="120">
                 <template #default="scope">
-                    <el-button link type="primary" size="small" @click="handleChosen(scope.row)">
+                    <el-button :disabled="!!scope.row.select_status" link type="primary" size="small" @click="handleChosen(scope.row)">
                       选择课程
                     </el-button>
                 </template>
@@ -122,11 +122,12 @@
             .then(async () => {
                 try {
                     const res = await applyCourse(record)
-                    console.log(res, record,'----------')
+                    console.log(res, record.course_id,'----------')
                     ElMessage({
                         type: 'success',
                         message: '操作成功',
-                    })   
+                    }) 
+                    getCourseInfoList()
                 } catch (error) {
                     ElMessage({
                         type: 'error',
