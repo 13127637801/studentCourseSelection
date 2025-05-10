@@ -40,7 +40,7 @@
 							<span>课程管理</span>
 						</template>
 						<el-menu-item-group title="课程列表">
-							<el-menu-item index="course_list">可选课程</el-menu-item>
+							<el-menu-item index="course_list">课程列表</el-menu-item>
 						</el-menu-item-group>
 						<el-menu-item-group title="选择课程">
 							<el-menu-item index="my_course_list">已选课程</el-menu-item>
