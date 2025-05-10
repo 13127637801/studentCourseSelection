@@ -46,12 +46,22 @@ const routes = [{
 			{
 				name: 'teacher_manage',
 				path: '/teacher_manage',
-				component: () => import('@/views/user_manage/user_manage/index.vue')
+				component: () => import('@/views/user_manage/teacher_manage/index.vue')
 			},
 			{
 				name: 'user_list',
 				path: '/user_list',
 				component: () => import('@/views/user_manage/user_list/index.vue')
+			},
+			{
+				name: 'course_list',
+				path: '/course_list',
+				component: () => import('@/views/course/course_list/index.vue')
+			},
+			{
+				name: 'my_course_list',
+				path: '/my_course_list',
+				component: () => import('@/views/course/my_course_list/index.vue')
 			},
 			{
 				name: 'product_manage_list',

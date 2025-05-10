@@ -75,6 +75,8 @@ const overviewLogRouter = require('./router/overview.js')
 app.use('/ov', overviewLogRouter)
 const depMsgRouter = require('./router/department_msg.js')
 app.use('/dm', depMsgRouter)
+const courseRouter = require('./router/course.js')
+app.use('/cus', courseRouter)
 
 // 对不符合joi规则的情况进行报错
 app.use((err,req, res, next) => {

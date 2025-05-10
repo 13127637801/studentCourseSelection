@@ -11,7 +11,7 @@
 						:prefix-icon="Search" @change='searchAdmin()' />
 				</div>
 				<div class="button-wrapped">
-					<el-button type="primary" @click="openCreate(2)">添加学生</el-button>
+					<el-button  v-if="role === 'admin' || role === 'teacher'" type="primary" @click="openCreate(2)">添加教师</el-button>
 				</div>
 			</div>
 			<!-- 表格内容 -->
@@ -20,10 +20,10 @@
 					<el-table-column type="index" width="50" />
 					<el-table-column prop="account" label="账号" />
 					<el-table-column prop="name" label="姓名" />
-					<el-table-column prop="department" label="部门" />
+					<el-table-column prop="department" label="院系" />
 					<el-table-column prop="email" label="邮箱" />
 					<el-table-column label="操作">
-						<template #default="{row}">
+						<template #default="{row}" v-if="role === 'admin' || role === 'teacher'">
 							<div>
 								<el-button type="success" @click="openEdit(row.id)">编辑</el-button>
 								<el-button type="danger" @click="openDelete(row.id)">删除</el-button>
@@ -63,16 +63,16 @@
 	// 面包屑参数
 	const item = ref({
 		first: '用户管理',
-		second:'学生'
+		second:'教师'
 	})
 	const adminAccount = ref('')
-
+	const role = localStorage.getItem('role')
 
 	// 表格内容
 	const tableData = ref()
 	// 搜索函数
 	const searchAdmin = async () => {
-		tableData.value = await searchUser(adminAccount.value,'学生')
+		tableData.value = await searchUser(adminAccount.value,'教师')
 	}
 	// 分页数据
 	const paginationData = reactive({
@@ -84,22 +84,22 @@
 	const adminTotal = ref<number>(0)
 	// 获取管理员的数量
 	const returnAdminListLength = async () => {
-		const res = await getAdminListLength('学生')
+		const res = await getAdminListLength('教师')
 		adminTotal.value = res.length
 		paginationData.pageCount = Math.ceil(res.length / 10)
 	}
 	returnAdminListLength()
 	// 默认获取第一页的数据据
 	const getFirstPageList = async () => {
-		tableData.value = await returnListData(1, '学生')
+		tableData.value = await returnListData(1, '教师')
 	}
 	getFirstPageList()
 	// 监听换页
 	const currentChange = async (value : number) => {
-		paginationData.pageCount = value
-		tableData.value = await returnListData(paginationData.pageCount, '学生')
+		paginationData.currentPage = value
+		tableData.value = await returnListData(paginationData.currentPage, '教师')
 	}
-	
+
 	bus.on('adminDialogOff', async (id : number) => {
 		// 当前页数
 		const current = paginationData.currentPage
@@ -109,18 +109,17 @@
 		}
 		// 2为编辑管理员
 		if (id == 2) {
-			tableData.value = await returnListData(paginationData.currentPage, '学生')
+			tableData.value = await returnListData(paginationData.currentPage, '教师')
 		}
 		// 3为对管理员进行降职
 		if (id == 3) {
-			tableData.value = await returnListData(paginationData.currentPage, '学生')
+			tableData.value = await returnListData(paginationData.currentPage, '教师')
 			if (tableData.value.length == 0) {
 				paginationData.currentPage = current - 1
 				returnAdminListLength()
 			}
 		}
 	})
-
 	// 新建管理员
 	const Create = ref()
 	const openCreate = (id : number) => {

@@ -4,7 +4,7 @@
 	<div class="module-common-wrapped">
 		<div class="module-common-content">
 			<el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-				<el-tab-pane label="课程列表" name="first">
+				<el-tab-pane label="产品列表" name="first">
 					<div class="pane-content">
 						<div class="pane-top">
 							<div class="module-common-header">
@@ -14,7 +14,7 @@
 										@clear="getProductFirstPageList" />
 								</div>
 								<div class="button-wrapped">
-									<el-button type="primary" @click="productInWarehouse">新增课程</el-button>
+									<el-button type="primary" @click="productInWarehouse">新增产品</el-button>
 								</div>
 							</div>
 							<!-- 表格部分 -->
@@ -183,8 +183,8 @@
 	const breadcrumb = ref()
 	// 面包屑参数
 	const item = ref({
-		first: '课程管理',
-		second: '课程列表'
+		first: '产品管理',
+		second: '产品列表'
 	})
 	const handleClick = (tab: TabsPaneContext) => {
 		if (tab.props.label == '产品列表') {
